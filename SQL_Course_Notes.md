@@ -69,8 +69,8 @@ FROM students AS s;
 
 ### 01-2. 집합 연산자 
 >두개 이상의 테이블에서 조인을 사용하지 않고 연관된 데이터를 조회하는 방법 중에 하나. 테이블에서 'SELECT'한 컬럼 수와 각 컬럼의 데이터 타입이 테이블간 상호 호환 가능해야한다. 
-
-*`UNION`*
+#### 일반 집합 연산 
+*`UNION`* 
 >두개의 테이블을 하나로 만드는 연산. `UNION`에 사용할 컬럼 수와 데이터 형식이 일치해야하며 합친 후에 *중복된 데이터는 제거*. 이를 위해 `UNION`은 테이블을 합칠때 *정렬 과정*을 발생시킴.(하지만 최종 결과에 대해 올바른 정렬을 위해서는 `ORDER BY` 구문을 사용해야함). 관계형 대수의 일반 집합 연산에서 합집합의 역할 
 
 ```SQL
@@ -79,7 +79,7 @@ UNION
 SELECT * FROM BETA;'
 ```
 
-*`UNIONALL`*
+*`UNIONALL`* 
 >`UNION`과 거의 같은 기능을 수행. 그러나 *중복된 데이터의 제거 및 정렬을 하지 않음*
 
 ```SQL
@@ -88,7 +88,7 @@ UNIONALL
 SELECT * FROM BETA;
 ```
 
-*`INTERSECT`*
+*`INTERSECT`* 
 >두개의 테이블에 대해 겹치는 부분을 추출하는 연산 (교집합).추출 후에는 *중복된 결과를 제거*. 관계형 대수의 일반 집합연산에서 교집합의 역할. **OMaria DB에서는 지원, MYSQL에서는 지원되지 않기 떄문에 JOIN 사용해야함.** 
 
 ```SQL
@@ -105,6 +105,20 @@ SELECT A,B FROM ALPHA
 EXCEPT 
 SELECT A,B FROM BETA;
 ```
+#### 순수 관계 연산 
+[그림]
+
+*'WHERE'/셀릭션*
+>특정 행만 호출 
+
+*'SELECT'/프로젝션*
+>특정 컬럼만 호출 
+
+*'다양한 JOIN'/ 조인*
+>두개의 테이블에서 겹치는 부분을 하나의 새로운 테이블로 만드는 연산. 
+
+*디비전*
+>두개의 테이블이 있을때, 두번째 테이블에 연관된 데이터만 추출하는 연산. 
 
 ### 01-3. 계층형 질의 -Oracle 
 > 테이블의 *계층형 데이터*가 존재하는 경우, 데이터를 조회하기 위해 사용하는 것. 대표적인 데이터 베이스로는 Oracle, SQL Server. 
@@ -122,9 +136,15 @@ FROM 테이블명
 START WITH 부모 컬럼 IS NULL -- 부모 컬럼이 NULL인 행이 Root (가장 상위)가 됨
 CONNECT BY PRIOR 자식 컬럼= 부모 컬럼; --상위 데이터와 하위 데이터 연결 방식
 ```
-[그림]
+
 
 *계층형 질의 응용 (Oracle)*
+[그림]
+```SQL
+SELECT LEVEL, LPAD('',4*(Level-1))||사원번호, 관리자 --LPAD('',n)은 왼쪽에 n자리의 공백 추가를 의미.ROOT는 LEVEL 값이 1이기 때문에 4*(LEVEL-1)=0이 된다.
+FROM 직원
+START WITH 관리자 IS NULL CONNECT BY PRIOR 사원번호 = 관리자;
+```
 
 [그림]
 *Connect by Keyword (Oracle)*
@@ -132,9 +152,13 @@ CONNECT BY PRIOR 자식 컬럼= 부모 컬럼; --상위 데이터와 하위 데�
 |---|---|
 |`LEVEL`| 검색 항목의 깊이를 의미하며,계층구조에서 루트(최상위)의 레벨1|
 |`CONNECT_BY_ROOT`| 현재 전개할 데이터의 루트(최상위) 데이터 값 표기|
-|`CONNECT_BY_ISLEAF`| 현재 전개할 데이터의 리프(최하위) 데이터 인지에 대한 값 표시(0 or 1 )|
+|`CONNECT_BY_ISLEAF`| 현재 전개할 데이터의 리프(최하위) 데이터 인지에 대한 값 표시(0 or 1)|
 |`SYS_CONNECT_BY_PATH(A,B)`| 루트 데이터부터 현재까지 전개한 경로 표시 (A:컬럼명,B:구분자)
 
+### 01-4. 계층형 질의 -SQL Server/Maria DB
 
-
-
+*계층형 질의* 
+- SQL Server 2000 이전: 저장 프로시저를 재귀 호출 / WHILE 루프문에서 임시테이블 이용 
+- SQL Server 2005 이후: CTE (Common Table Expression)을 이용하여 재귀 호출 
+- MariaDB 10.2 이후: CTE (Common Table Expression)을 이용하여 재귀 호출 
+[그림]
