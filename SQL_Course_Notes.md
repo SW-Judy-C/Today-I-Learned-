@@ -162,3 +162,46 @@ START WITH 관리자 IS NULL CONNECT BY PRIOR 사원번호 = 관리자;
 - SQL Server 2005 이후: CTE (Common Table Expression)을 이용하여 재귀 호출 
 - MariaDB 10.2 이후: CTE (Common Table Expression)을 이용하여 재귀 호출 
 [그림]
+
+## 02. JOIN 심화 
+### 02-1. JOIN 
+> 두 개 이상의 테이블들을 *연결* 또는 *결합*하여 데이터를 출력하는 것. 연산자에 따라 EQUI JOIN, Non EQUI JOIN 으로 분류함. 
+
+*`EQUI JOIN` (등가 교집합)*
+> 두 개의 테이블 간에 *서로 정확하게 일치하는 경우*를 활용하는 조인. 간단히 말해, 등가 연산자를 사용한 조인을 의미 `=` 대부분 기본키-외래키 관계를 기반으로 발생하나, 모든 조인이 그런 것은 아니다. 
+
+*`Non EQUI JOIN` (비등가 교집합)*
+> 두 개의 테이블 간에 *서로 정확하게 일치하지 않는 경우*를 확용하는 조인. 간단히 말해, *등가 연산자*이외의 연산자들을 사용하는 조인을 의미. `>` `>=` `<=` `<` `BETWEEN`
+
+### 02-2. FROM 절 JOIN 형태 
+*`INNER JOIN`*
+> *내부 JOIN*이라고 하며 JOIN 조건에서 동일한 값이 있는 행만 반환. INNER JOIN은 *JOIN의 기본값*으로 'INNER'생략 가능 
+```SQL
+SELECT * FROM 테이블1 [INNER]JOIN 테이블2 -- INNER JOIN구로 테이블 정의 
+
+ON 테이블1.컬럼명 = 테이블2.컬럼명; -- ON구를 사용해 조인 조건 지정 
+```
+
+*'USING 조건절'*
+> *같은 이름을 가진 컬럼들* 중 원하는 칼럼에 대해서만 선택적으로 등가조인 가능. SQL Server에서는 지원 X 
+
+```SQL
+SELECT * FROM 테이블1 JOIN 테이블2 
+USING(기준칼럼); -- USING 조건절 사용시에는 칼럼이나 테이블에 별칭을 붙일 수 없음 
+```
+
+*'NATURAL JOIN'*
+> 두 테이블 간의 *동일한 이름*을 갖는 모든 칼럼들에 대해 *등가 조인*을 수행. 
+```SQL
+SELECT * FROM 테이블1 NATURAL JOIN 테이블2; -- 추가로 ON 조건절이나 USING 조건절, WHERE절에서 JOIN 조건 정의 불가  
+```
+<img width="1049" alt="2022-10-13_20-42-27" src="https://user-images.githubusercontent.com/114547060/195587269-48b97365-2c05-4706-b1a3-5f78fe797eb6.png">
+
+*'CROSS JOIN'*
+> JOIN 조건이 없는 경우, *모든 데이터의 조합*을 조회
+
+
+
+### 02-3. SELF JOIN 
+
+
