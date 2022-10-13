@@ -182,7 +182,7 @@ SELECT * FROM 테이블1 [INNER]JOIN 테이블2 -- INNER JOIN구로 테이블 �
 ON 테이블1.컬럼명 = 테이블2.컬럼명; -- ON구를 사용해 조인 조건 지정 
 ```
 
-*'USING 조건절'*
+*`USING 조건절`*
 > *같은 이름을 가진 컬럼들* 중 원하는 칼럼에 대해서만 선택적으로 등가조인 가능. SQL Server에서는 지원 X 
 
 ```SQL
@@ -190,14 +190,14 @@ SELECT * FROM 테이블1 JOIN 테이블2
 USING(기준칼럼); -- USING 조건절 사용시에는 칼럼이나 테이블에 별칭을 붙일 수 없음 
 ```
 
-*'NATURAL JOIN'*
+*`NATURAL JOIN`*
 > 두 테이블 간의 *동일한 이름*을 갖는 모든 칼럼들에 대해 *등가 조인*을 수행. 
 ```SQL
 SELECT * FROM 테이블1 NATURAL JOIN 테이블2; -- 추가로 ON 조건절이나 USING 조건절, WHERE절에서 JOIN 조건 정의 불가  
 ```
-<img width="1049" alt="2022-10-13_20-42-27" src="https://user-images.githubusercontent.com/114547060/195587269-48b97365-2c05-4706-b1a3-5f78fe797eb6.png">
+<img width="8000" alt="2022-10-13_20-42-27" src="https://user-images.githubusercontent.com/114547060/195587269-48b97365-2c05-4706-b1a3-5f78fe797eb6.png">
 
-*'CROSS JOIN'*
+*`CROSS JOIN`* 
 > JOIN 조건이 없는 경우, *모든 데이터의 조합*을 조회
 
 
