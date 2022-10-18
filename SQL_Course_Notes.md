@@ -199,9 +199,81 @@ SELECT * FROM 테이블1 NATURAL JOIN 테이블2; -- 추가로 ON 조건절이�
 
 *`CROSS JOIN`* 
 > JOIN 조건이 없는 경우, *모든 데이터의 조합*을 조회
+```SQL
+SELECT * FROM PERSON
+(CROSS) JOIN PUBLIC_TRANSPORT; -- CROSS 부분 생략 가능   
+```
+<img width="962" alt="2022-10-18_15-51-48" src="https://user-images.githubusercontent.com/114547060/196356764-affc343f-8ca0-4f0a-9816-6a915a869670.png">
 
+*`OUTER JOIN`* 
+<img width="158" alt="2022-10-18_16-06-16" src="https://user-images.githubusercontent.com/114547060/196359945-4cc22cd6-4e66-449d-b414-721a05d12519.png">
+> 두개의 테이블 간의 교집합을 조회하고 *한쪽 테이블에만 있는 데이터도 포함* 시켜서 조회.빈 곳은 NULL 값으로 출력. WHERE 조건절에서 한쪽에만 있는 데이터를 *포함시킬 테이블 쪽으로 (+)* 를 위치 
+```SQL
+SELECT * FROM USER, CLASS  
+WHERE USER.CLASS_ID (+) = CLASS.CLASS_ID; 
+```
+<img width="952" alt="2022-10-18_16-02-33" src="https://user-images.githubusercontent.com/114547060/196359160-f4329e92-9ddc-4331-9b1f-95adcdc1ff83.png">
+
+*표준 OUTER JOIN (`LEFT JOIN`)*
+<img width="158" alt="2022-10-18_16-06-16" src="https://user-images.githubusercontent.com/114547060/196360047-4d1d04f0-a588-4989-b6f6-77bdbda32b7b.png">
+```SQL
+SELECT * FROM USER LEFT[OUTER]JOIN CLASS  
+WHERE USER.CLASS_ID = CLASS.CLASS_ID; 
+```
+<img width="952" alt="2022-10-18_16-02-33" src="https://user-images.githubusercontent.com/114547060/196360255-75fea4d7-1065-4a5b-b6bf-e2bb8e95a307.png">
+
+*표준 OUTER JOIN (`RIGHT JOIN`)* 
+<img width="168" alt="2022-10-18_16-09-39" src="https://user-images.githubusercontent.com/114547060/196360727-0fcb4f4d-1021-4c55-9d52-7baf14121adb.png">
+```SQL
+SELECT * FROM USER RIGHT[OUTER]JOIN CLASS -- CLASS 테이블은 모두 출력 되어야함  
+WHERE USER.CLASS_ID = CLASS.CLASS_ID; 
+```
+<img width="938" alt="2022-10-18_16-10-28" src="https://user-images.githubusercontent.com/114547060/196360961-7d2dc299-ca41-4a15-9983-336948bfc1f2.png">
+*표준 OUTER JOIN (`FULL OUTER JOIN`)* **
+<img width="161" alt="2022-10-18_16-14-10" src="https://user-images.githubusercontent.com/114547060/196361763-ea41773c-a2c1-40dd-b9a7-3e72a4f8bf7a.png">
+```SQL
+SELECT * FROM CLASS FULL OUTER JOIN USER 
+WHERE USER.CLASS_ID (+) = CLASS.CLASS_ID; 
+```
+<img width="940" alt="2022-10-18_16-16-08" src="https://user-images.githubusercontent.com/114547060/196362143-0ba420b7-d28e-4fd7-aec2-9d94d60b0726.png">
+
+** `FULL OUTER JOIN`은 ORACLE DB에서만 사용, MYSQL/MARIA DB에서는 `UNION` 사용. 
+예시 
+```SQL
+SELECT * FROM CLASS LEFT OUTER JOIN USER 
+ON USER.CLASS_ID = CLASS.CLASS_ID
+UNION 
+SELECT * FROM CLASS RIGHT OUTER JOIN USER 
+ON USER.CLASS_ID = CLASS.CLASS_ID; 
+```
+*INNTER JOIN*
+
+> JOIN 활용한 쿼리에서도 WHERE 문을 이용하여 조건을 걸수 있음 
+기본 형태: 
+```SQL
+SELECT * FROM 테이블1 [INNER] JOIN 테이블2
+ON 테이블1.[컬럼명] = 테이블2.[컬럼명]
+WHERE [조건]; 
+```
+```SQL
+SELECT * FROM USER a [INNER] JOIN CLASS b
+ON a.CLASS_ID = b.ID
+WHERE name = '모자장수'; 
+```
+<img width="456" alt="2022-10-18_17-22-38" src="https://user-images.githubusercontent.com/114547060/196376848-53b80932-843c-45f9-afdf-8c9e705b4ae8.png">
 
 
 ### 02-3. SELF JOIN 
+
+> 동일 테이블 사이의 조인. 동일 테이블 사이 조인을 실행하면, 테이블 및 컬럼 이름이 모두 동일하므로 별칭 사용 필수. 
+```SQL
+SELECT ALPHA.사원번호, ALPHA.관리자, BETA.관리자 차상위 
+FROM 직원 ALPHA, 직원 BETA 
+WHERE ALPHA.관리자 = BETA.관리자; 
+```
+<img width="784" alt="2022-10-18_17-42-21" src="https://user-images.githubusercontent.com/114547060/196381536-6e322056-d7d6-49e0-a2bd-b71fc8dd7764.png">
+
+[자주 틀리는 예시문제]
+
 
 
