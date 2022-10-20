@@ -2,7 +2,7 @@
 ## 5. Subquery 
 >Subquery는 위치에 따라 2가지 형식으로 다르게 작용함. `WHERE` 절에 사용하는 경우, `SELECT`절에 사용하는 경우. 
 
-###5-1. `WHERE` 절에 사용
+### 5-1. `WHERE` 절에 사용
  - 중요: `WHERE` 절에 사용시 Subquery는 오른쪽에 있어야함. 비교 연산자 (<,>,=) 통한 Subquery와 비교하기 위해서는 1가지 row만 나와야함
 
 >Q1. salaries 테이블에서 from_date가 2000-12-31 이전인 사람들의 급여 중 하나의 급여 보다 더 적은 급여를 받은 직원의 급여 정보를 모두 출력해보세요. ((In, Any, All)사용 )
@@ -266,6 +266,7 @@ WHERE name = '모자장수';
 ### 02-3. SELF JOIN 
 
 > 동일 테이블 사이의 조인. 동일 테이블 사이 조인을 실행하면, 테이블 및 컬럼 이름이 모두 동일하므로 별칭 사용 필수. 
+
 ```SQL
 SELECT ALPHA.사원번호, ALPHA.관리자, BETA.관리자 차상위 
 FROM 직원 ALPHA, 직원 BETA 
@@ -273,7 +274,47 @@ WHERE ALPHA.관리자 = BETA.관리자;
 ```
 <img width="784" alt="2022-10-18_17-42-21" src="https://user-images.githubusercontent.com/114547060/196381536-6e322056-d7d6-49e0-a2bd-b71fc8dd7764.png">
 
-[자주 틀리는 예시문제]
+:exclamation:문제 예시 
+> EMPLOYEE 테이블에는 사원 ID, 사원 이름, 관리자 ID 정보가 담겨있습니다. 각 사원들의 관리자가 누구인지 확인하고자 합니다. 하지만 EMPLOYEE테이블에는 관리자 ID 만 함께 존재하기 때문에, 셀프 조인 개념을 이용하여 각 사원 정보와 관리자 이름을 함께 조회해봅시다. EMPLOYEE 테이블에 대해서 SELF JOIN을 이용하여, 사원 ID(employee_id), 사원 이름(employee_name), 관리자 이름(employee_name as manager_name) 을 출력하는 쿼리를 작성해봅시다.
 
+*<EMPLOYEE TABLE 구조, DATA >* 
+
+```SQL
+DESC EMPLOYEE; 
++---------------+-------------+------+-----+---------+-------+
+| Field         | Type        | Null | Key | Default | Extra |
++---------------+-------------+------+-----+---------+-------+
+| employee_id   | int(11)     | NO   | PRI | NULL    |       |
+| employee_name | varchar(30) | NO   |     | NULL    |       |
+| manager_id    | int(11)     | YES  |     | NULL    |       |
++---------------+-------------+------+-----+---------+-------+
+SELECT * FROM EMPLOYEE; 
++-------------+---------------+------------+
+| employee_id | employee_name | manager_id |
++-------------+---------------+------------+
+|       10001 | Kim           |       NULL |
+|       10002 | Lee           |      10001 |
+|       10003 | Park          |      10001 |
+|       10004 | Moon          |      10002 |
+|       10005 | Choi          |      10002 |
++-------------+---------------+------------+
+
+```
+*답* 
+```SQL
+SELECT a.employee_id, a.employee_name, b.employee_name AS manager_name 
+ FROM EMPLOYEE AS a, EMPLOYEE AS b 
+ WHERE a.manager_id = b.employee_id
+ ORDER BY employee_id ASC; 
+ 
++-------------+---------------+--------------+
+| employee_id | employee_name | manager_name |
++-------------+---------------+--------------+
+|       10002 | Lee           | Kim          |
+|       10003 | Park          | Kim          |
+|       10004 | Moon          | Lee          |
+|       10005 | Choi          | Lee          |
++-------------+---------------+--------------+
+```
 
 
