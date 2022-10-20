@@ -372,10 +372,50 @@ _MY SQL, MARIA DB에서는 임시 테이블 (예시: FROM DUAL)생략 가능_
 ## 4. 그룹 함수 & 윈도우 함수 
 ### 04-1. 데이터 분석 개요 
 데이터 분석을 위한 함수 
-윈도우 함수 (Window Function) 
-집계 함수 (Aggregate Function)
+윈도우 함수 (Window Function) -열과 열 뿐만 아니라, 행과 행도 포함 
+집계 함수 (Aggregate Function) - 윈도우 함수에 포함됨. 
 그룹 함수 (Window Function) 
-### 04-2. 윈도우함수
+
+### 04-2. 윈도우 함수
+> 순위, 합계 등 *행과 행 사이의* 관계를 정의하는 함수. *`OVER` 구문을 필수*로 한다. 
+
+```SQL
+SELECT WINDOW_FUNCTION(ARGUMENTS)
+OVER( [PARTITION BY 칼럼][ORDER BY 절][WINDOWING 절])FROM 테이블 명; 
+```
+|구조|설명|
+|-|-|
+|ARGUMENTS| 윈도우 함수에 따라서 필요한 인수|
+|PARTITION BY|전체 집합에 대해 소그룹으로 나누는 기준|
+|ORDER BY| 소그룹에 대한 정렬 기준|
+|WINDOWING|행에 대한 범위 기준|
+
+*WINDOWING 절에서 사용하는 명령어* 
+|구조|설명|
+|-|-|
+|ROWS|물리적 단위로 행의 집합을 지정|
+|UNBOUNDED PRECEDING| 윈도우 시작 위치가 첫번째 행|
+|UNBOUNDED FOLLOWING| 윈도우 마지막 위치가 마지막 행|
+|CURRENT ROW|윈도우 시작 위치가 현재 행|
+
+#### 04-2-A. 순위 함수 
+
+```SQL
+RANK()OVER( [PARTITION BY 칼럼][ORDER BY 절][WINDOWING 절])
+```
+|함수|설명|
+|-|-|
+|RANK|동일한 값에는 동일한 순서를 부여|
+|DENSE_RANK|RANK와 같이 같은 값에는 같은 순위를 부여하거나 한 건으로 취급|
+|ROW_NUMBER|동일한 값이라도 고유한 순위를 부여|
+
+<img width="991" alt="2022-10-20_20-22-13" src="https://user-images.githubusercontent.com/114547060/196935516-fad87ed4-69bb-4531-ac94-6fd0e564d619.png">
+
+#### 04-2-B. 일반 집계 함수 
+> 일반 집계 함수 (SUM, AVG, MAX, MIN ...)를 GROUP BY 구문 없이 사용할 수 있다.
+<img width="1003" alt="2022-10-20_20-39-15" src="https://user-images.githubusercontent.com/114547060/196938573-b1710255-1dd4-42a7-8835-2f1f182ae03a.png">
+
+
 ### 04-3. 그룹함수 
 
 
