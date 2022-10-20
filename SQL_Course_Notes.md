@@ -369,5 +369,15 @@ _MY SQL, MARIA DB에서는 임시 테이블 (예시: FROM DUAL)생략 가능_
 <img width="963" alt="2022-10-20_18-19-52" src="https://user-images.githubusercontent.com/114547060/196909393-497a3c5b-dda7-42c2-944f-7fa0a68bdd33.png">
 <img width="1005" alt="2022-10-20_18-20-43" src="https://user-images.githubusercontent.com/114547060/196909591-af60dd17-f52a-45ed-bf50-6c532efcde28.png">
 
+## 4. 그룹 함수 & 윈도우 함수 
+### 04-1. 데이터 분석 개요 
+데이터 분석을 위한 함수 
+윈도우 함수 (Window Function) 
+집계 함수 (Aggregate Function)
+그룹 함수 (Window Function) 
+### 04-2. 윈도우함수
+### 04-3. 그룹함수 
+
+
 
 
