@@ -316,5 +316,28 @@ SELECT a.employee_id, a.employee_name, b.employee_name AS manager_name
 |       10005 | Choi          | Lee          |
 +-------------+---------------+--------------+
 ```
+## 3. 서브쿼리 심화 
+### 03-1. 동작하는 방식에 따른 서브쿼리 분류 
+> 서브쿼리에 *메인쿼리의 컬럼*이 포함되는지에 따라 분류. 
+
+#### 연관 서브쿼리 (Correlated Subquery)
+> 메인쿼리의 컬럼이 서브쿼리에 *포함되며*, 메인쿼리의 컬럼은 서브쿼리의 특정조건으로 사용된다.
+<img width="960" alt="2022-10-20_11-02-29" src="https://user-images.githubusercontent.com/114547060/196840564-bc841d15-a93d-4ae9-b58f-c55a85319b56.png">
+
+#### 비연관 서브쿼리 (Un-Correlated Subquery)
+> 메인쿼리의 컬럼이 서브쿼리에 *포함되지 않으며*, 주로 메인쿼리에 특정한 값을 제공할때 사용된다. 
+<img width="974" alt="2022-10-20_11-19-02" src="https://user-images.githubusercontent.com/114547060/196840715-245d1d75-7c0a-497e-9843-8335d65b0ad5.png">
+
+### 03-2. 반환되는 방식에 따른 서브쿼리 분류 
+#### 단일 행 서브쿼리 (Single Row Subquery)
+> 서브쿼리의 결과가 *한 개의 행* 을 반환하며, 단일 행 비교 연산자 (=,<,>,<=,>=) 와 같이 사용된다. 
+<img width="951" alt="2022-10-20_11-36-16" src="https://user-images.githubusercontent.com/114547060/196842984-b9c4ee1e-daf0-4570-9694-aeaac12cd548.png">
+#### 다중 행 서브쿼리 (Multi Row Subquery) 
+>
+#### 다중 컬럼 서브쿼리 (Multi Column Subquery) 
+>
+
+### 03-3. 스칼라 서브쿼리 
+### 03-4. 뷰 
 
 
