@@ -415,9 +415,49 @@ RANK()OVER( [PARTITION BY 칼럼][ORDER BY 절][WINDOWING 절])
 > 일반 집계 함수 (SUM, AVG, MAX, MIN ...)를 GROUP BY 구문 없이 사용할 수 있다.
 <img width="1003" alt="2022-10-20_20-39-15" src="https://user-images.githubusercontent.com/114547060/196938573-b1710255-1dd4-42a7-8835-2f1f182ae03a.png">
 
+#### 04-2-C. :fire: 그룹 내 행 순서 함수 
 
-### 04-3. 그룹함수 
+|함수|설명|
+|-|-|
+|FIRST_VALUE|가장 먼저 나온 값을 구한다| 
+|LAST_VALUE|가장 나중에 나온 값을 구한다|
+|LAG|이전 x 번째 행을 가져온다|
+|LEAD|이후 x 번째 행을 가져온다| 
 
+<img width="992" alt="2022-10-20_21-01-37" src="https://user-images.githubusercontent.com/114547060/196942973-45301022-14db-4b3d-b08c-99321de957ae.png">
+
+<img width="1006" alt="2022-10-20_21-13-39" src="https://user-images.githubusercontent.com/114547060/196945392-741aa4d8-2443-41f7-b297-393430b0aff9.png">
+
+#### 04-2-D. :fire: 그룹 내 비율 함수 
+
+|함수|설명|
+|-|-|
+|`RATIO_TO_REPORT`|파티션 내 전체 SUM에 대한 비율을 구한다| 
+|`PERCENT_RANK`|파티션 내 순위를 백분율로 구한다|
+|`CUME_DIST`|파티션 내 현재 행보다 작거나 같은 건들의 수 누적 백분율을 구한다|
+|`NTILE`|파티션내 행들을 N등분한 결과를 구한다| 
+
+<img width="988" alt="2022-10-20_21-46-34" src="https://user-images.githubusercontent.com/114547060/196952583-414c6d93-094d-4be1-a4c7-3594d3f11b1f.png">
+
+<img width="985" alt="2022-10-20_21-48-41" src="https://user-images.githubusercontent.com/114547060/196953081-313b21ce-fdf2-4a67-96fc-d3950295c092.png">
+`NTILE`
+```SQL
+NTILE(N)OVER(ORDER BY 컬럼) - N 개의 그룹으로 분류 
+```
+![2022-10-20_22-16-36](https://user-images.githubusercontent.com/114547060/196959500-d0dfd448-4518-4797-a81a-e8739e4cc0ab.png)
+
+### 04-3. 그룹 함수 
+> 데이터를 통계 내기 위해서는, 전체 데이터에 대한 통계는 물론이고 데이터 일부에 대한 소계, 중계 또한 필요하다. 
+<img width="860" alt="2022-10-20_23-03-33" src="https://user-images.githubusercontent.com/114547060/196970553-80d24263-766e-46e8-b3ac-7057490d50d7.png">
+<img width="854" alt="2022-10-20_23-01-23" src="https://user-images.githubusercontent.com/114547060/196970002-458cf226-c633-4b90-94ea-c0138a379a76.png">
+
+`ROLLUP`
+> 그룹화하는 컬럼에 대한 부분적인 통계를 제공해준다 
+<img width="946" alt="2022-10-20_23-19-15" src="https://user-images.githubusercontent.com/114547060/196974457-848b3675-ba03-41c5-870a-4e9db537eaa5.png">
+
+`CUBE`
+> `ROLLUP`함수에서 제공하는 결과를 포함해서,CUBE 함수에서는 그룹화 하는 컬럼에 대해 결한 가능한 모든 경우의 수에 대해 다차원 집계를 생성한다.(`ROLLUP`들의 합이라고 생각하면 됨) 
+<img width="975" alt="2022-10-20_23-28-11" src="https://user-images.githubusercontent.com/114547060/196976782-2d512027-c66d-42ca-a77e-464dcb841dee.png">
 
 
 
