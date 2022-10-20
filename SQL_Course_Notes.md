@@ -333,11 +333,41 @@ SELECT a.employee_id, a.employee_name, b.employee_name AS manager_name
 > 서브쿼리의 결과가 *한 개의 행* 을 반환하며, 단일 행 비교 연산자 (=,<,>,<=,>=) 와 같이 사용된다. 
 <img width="951" alt="2022-10-20_11-36-16" src="https://user-images.githubusercontent.com/114547060/196842984-b9c4ee1e-daf0-4570-9694-aeaac12cd548.png">
 #### 다중 행 서브쿼리 (Multi Row Subquery) 
->
+> 서브쿼리의 결과가 *두 개 이상의 행을* 반환 할 수 있으며, 다중 행 비교 연산자 (IN, ALL, ANY, EXISTS)와 같이 사용된다. 
+<img width="952" alt="2022-10-20_16-59-50" src="https://user-images.githubusercontent.com/114547060/196891008-e439aba2-b7c0-4817-ab17-c73bfff1bc74.png">
+*`IN`*
+<img width="971" alt="2022-10-20_17-01-27" src="https://user-images.githubusercontent.com/114547060/196891355-57fbd7ff-0db2-4325-85e7-6b1f68db1db2.png">
+
+*`EXISTS`*
+<img width="955" alt="2022-10-20_17-03-56" src="https://user-images.githubusercontent.com/114547060/196891927-52f624cc-2d8b-480a-96e9-3f657b7ca914.png">
+
+*`ALL`*
+<img width="977" alt="2022-10-20_17-08-03" src="https://user-images.githubusercontent.com/114547060/196892770-caf506ae-0647-46b2-89bb-60be4b333246.png">
+
+*`ANY`*
+<img width="971" alt="2022-10-20_17-10-40" src="https://user-images.githubusercontent.com/114547060/196893360-64c63c91-c119-4828-af98-c10962a39674.png">
+
 #### 다중 컬럼 서브쿼리 (Multi Column Subquery) 
->
+> 서브쿼리의 결과가 *여러개의 컬럼*을 반환하며, 메인쿼리의 조건과 동시에 비교된다. 
+<img width="956" alt="2022-10-20_17-34-53" src="https://user-images.githubusercontent.com/114547060/196898875-9f00c79d-d131-4cc4-809d-0c21a16094cc.png">
 
 ### 03-3. 스칼라 서브쿼리 
+> 하나의 속성을 가지면서, 하나의 행만을 반환하는 쿼리. `SELECT`, `WHERE`, `HAVING` 절에서 사용할 수 있음
+<img width="965" alt="2022-10-20_17-50-49" src="https://user-images.githubusercontent.com/114547060/196902614-236925ad-c46b-4844-93fb-da4a6b21533d.png">
+<img width="985" alt="2022-10-20_17-55-18" src="https://user-images.githubusercontent.com/114547060/196903712-1009a841-49d2-4591-8aae-dcaa7380f029.png">
+_MY SQL, MARIA DB에서는 임시 테이블 (예시: FROM DUAL)생략 가능_ 
+
 ### 03-4. 뷰 
+> 뷰는 다른 테이블에서 파생된 테이블이다. 물리적으로 데이터가 저장되는 것이 아니라, *논리적으로만 존재*하며 뷰를 사용한 질의 시에는 DBMS에서 뷰 정의에 따라 질의를 재작성하여 수행한다. 
+
+*뷰의 장점*
+<img width="945" alt="2022-10-20_18-08-46" src="https://user-images.githubusercontent.com/114547060/196906828-8b66af29-47ec-4759-890d-c37add8456cd.png">
+
+*뷰의 특징* 
+<img width="874" alt="2022-10-20_18-14-00" src="https://user-images.githubusercontent.com/114547060/196907966-9f6e5c2f-18a6-4e25-a0b4-b2fa7585c532.png">
+*뷰 정의 쿼리* 
+<img width="963" alt="2022-10-20_18-19-52" src="https://user-images.githubusercontent.com/114547060/196909393-497a3c5b-dda7-42c2-944f-7fa0a68bdd33.png">
+<img width="1005" alt="2022-10-20_18-20-43" src="https://user-images.githubusercontent.com/114547060/196909591-af60dd17-f52a-45ed-bf50-6c532efcde28.png">
+
 
 
